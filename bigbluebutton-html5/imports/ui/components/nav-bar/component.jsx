@@ -9,6 +9,7 @@ import { defineMessages, injectIntl } from 'react-intl';
 import { styles } from './styles.scss';
 import Button from '../button/component';
 import RecordingIndicator from './recording-indicator/container';
+import RandomQuestionsIndicator from './random-questions-indicator/container';
 import TalkingIndicatorContainer from '/imports/ui/components/nav-bar/talking-indicator/container';
 import SettingsDropdownContainer from './settings-dropdown/container';
 
@@ -109,6 +110,11 @@ class NavBar extends PureComponent {
             <h1 className={styles.presentationTitle}>{presentationTitle}</h1>
 
             <RecordingIndicator
+              mountModal={mountModal}
+              amIModerator={amIModerator}
+            />
+
+            <RandomQuestionsIndicator
               mountModal={mountModal}
               amIModerator={amIModerator}
             />
