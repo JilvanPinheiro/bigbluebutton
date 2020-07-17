@@ -30,6 +30,7 @@
     }
   },
   "dependencies": {
+    "moment": "2.27.0",
     "@babel/runtime": "^7.5.5",
     "@browser-bunyan/server-stream": "^1.5.1",
     "@jitsi/sdp-interop": "0.1.14",

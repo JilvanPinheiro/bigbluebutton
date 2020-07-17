@@ -3,7 +3,6 @@ import RecordingContainer from '/imports/ui/components/recording/container';
 import humanizeSeconds from '/imports/utils/humanizeSeconds';
 import Tooltip from '/imports/ui/components/tooltip/component';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import { styles } from './styles';
 
@@ -68,11 +67,9 @@ class RecordingIndicator extends PureComponent {
     super(props);
     this.state = {
       time: (props.time ? props.time : 0),
-      dateTime: moment().format('MMM DD YYYY, HH:MM:ss'),
     };
 
     this.incrementTime = this.incrementTime.bind(this);
-    this.reloadDateTime = this.reloadDateTime.bind(this);
   }
 
   componentDidUpdate() {
@@ -83,10 +80,6 @@ class RecordingIndicator extends PureComponent {
     } else if (this.interval === null) {
       this.interval = setInterval(this.incrementTime, 1000);
     }
-  }
-
-  reloadDateTime() {
-    this.setState({ dateTime: moment().format('MMM DD YYYY, HH:MM:ss') });
   }
 
   incrementTime() {
@@ -112,15 +105,12 @@ class RecordingIndicator extends PureComponent {
       micUser,
     } = this.props;
 
-    const { time, dateTime } = this.state;
-    setInterval(this.reloadDateTime, 1000);
-
+    const { time } = this.state;
     if (!record) return null;
 
     if (!this.interval && recording) {
       this.interval = setInterval(this.incrementTime, 1000);
     }
-
 
     const title = intl.formatMessage(recording ? intlMessages.recordingIndicatorOn
       : intlMessages.recordingIndicatorOff);
@@ -188,7 +178,7 @@ class RecordingIndicator extends PureComponent {
             ) : null
           }
           {recording
-            ? <span aria-hidden>{`${humanizeSeconds(time)} ${dateTime}`}</span> : <span>{`${recordTitle} ${dateTime}`}</span>}
+            ? <span aria-hidden>{humanizeSeconds(time)}</span> : <span>{recordTitle}</span>}
         </div>
       </div>
     );
